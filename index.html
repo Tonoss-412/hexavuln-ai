@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HexaVuln AI | AI Security Research Workspace</title>
+    <meta name="description" content="AI security research, built for the people who find vulnerabilities.">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="bg-glow"></div>
+    <div class="bg-glow-2"></div>
+
+    <nav>
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-shield-halved"></i>
+                HexaVuln<span>AI</span>
+            </a>
+            <div class="nav-links">
+                <a href="#product">Product</a>
+                <a href="#workflow">Workflow</a>
+                <a href="#security">Security</a>
+                <a href="#about">About</a>
+            </div>
+            <a href="app/index.html" class="btn btn-outline">Early Access</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>AI security research, built for the people who find vulnerabilities.</h1>
+                <p>HexaVuln helps security researchers analyze findings, correlate evidence, document vulnerabilities, and turn technical research into actionable security reports.</p>
+                <div class="hero-buttons">
+                    <a href="app/index.html" class="btn btn-primary">Try Demo Workspace</a>
+                    <a href="mailto:TQH.B26CHAT019@stu.ptit.edu.vn" class="btn btn-outline">Contact Founder</a>
+                </div>
+
+                <div class="code-window">
+                    <div class="code-header">
+                        <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+                    </div>
+                    <div class="code-content text-left" style="text-align: left;">
+<pre><code><span class="code-comment">// HexaVuln AI analyzing HTTP response for IDOR vulnerability</span>
+<span class="code-keyword">const</span> analysis = <span class="code-keyword">await</span> claude.<span class="code-function">analyzeEvidence</span>({
+  <span class="code-string">target</span>: <span class="code-string">"api.example.com/v1/users/9082"</span>,
+  <span class="code-string">evidence</span>: httpLogData,
+  <span class="code-string">context</span>: <span class="code-string">"Testing access control boundaries"</span>
+});
+
+console.<span class="code-function">log</span>(analysis.confidence); <span class="code-comment">// 0.98</span>
+console.<span class="code-function">log</span>(analysis.vulnerabilityClass); <span class="code-comment">// "Insecure Direct Object Reference (IDOR)"</span>
+console.<span class="code-function">log</span>(analysis.severity); <span class="code-comment">// "High"</span></code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="product" class="container">
+        <h2 class="text-center">The Workspace for <span class="text-gradient">Modern Security</span></h2>
+        <div class="glass-grid">
+            <div class="glass-card">
+                <div class="card-icon"><i class="fa-solid fa-microscope"></i></div>
+                <h3>Evidence Correlation</h3>
+                <p>Paste HTTP requests, source code snippets, and logs. Claude intelligently parses the context to assist with root cause analysis.</p>
+            </div>
+            <div class="glass-card">
+                <div class="card-icon"><i class="fa-solid fa-brain"></i></div>
+                <h3>Claude Integration</h3>
+                <p>Powered by Anthropic's Claude. Designed to act as a reasoning layer for security analysis, entirely human-in-the-loop.</p>
+            </div>
+            <div class="glass-card">
+                <div class="card-icon"><i class="fa-solid fa-file-export"></i></div>
+                <h3>Actionable Reports</h3>
+                <p>Generate highly structured, professional remediation guidance and Markdown vulnerability reports automatically.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="workflow" class="container" style="text-align: center;">
+        <h2>Human-in-the-Loop <span class="text-gradient">Workflow</span></h2>
+        <p style="margin: 0 auto 3rem;">We believe AI should assist, not replace. The security researcher remains entirely responsible for validation.</p>
+        
+        <div class="code-window" style="max-width: 800px; margin: 0 auto; text-align: left;">
+            <div class="code-header">
+                <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+            </div>
+            <div class="code-content">
+<pre><code><span class="code-comment"># The HexaVuln Process</span>
+
+1. <span class="code-keyword">Researcher</span> finds anomalous behavior.
+2. <span class="code-keyword">Researcher</span> drops evidence into HexaVuln workspace.
+3. <span class="code-keyword">Claude</span> reasons about potential root causes and affected components.
+4. <span class="code-keyword">Researcher</span> manually validates the hypothesis.
+5. <span class="code-keyword">Claude</span> drafts a comprehensive Markdown report.
+6. <span class="code-keyword">Researcher</span> signs off and submits.</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="container" style="text-align: center;">
+        <h2>Built by <span class="text-gradient">Researchers</span></h2>
+        <p style="margin: 0 auto 2rem;">HexaVuln AI is an early-stage project built in public by Tran Quang Huy, a security researcher from Hanoi, Vietnam.</p>
+        <a href="mailto:TQH.B26CHAT019@stu.ptit.edu.vn" class="btn btn-outline">TQH.B26CHAT019@stu.ptit.edu.vn</a>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="logo justify-center" style="justify-content: center; margin-bottom: 1rem;">
+                <i class="fa-solid fa-shield-halved" style="color: var(--accent-primary);"></i> HexaVuln
+            </div>
+            <p style="margin: 0 auto;">Building the future of AI-assisted security research.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Security</a>
+                <a href="https://github.com/">GitHub</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
