@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workspace | HexaVuln AI</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .app-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+        .sidebar {
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--glass-border);
+            padding: 2rem 1rem;
+        }
+        .main-content {
+            padding: 2rem;
+            max-height: 100vh;
+            overflow-y: auto;
+        }
+        .case-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+        .case-list li {
+            padding: 0.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 0.5rem;
+            border: 1px solid transparent;
+        }
+        .case-list li:hover, .case-list li.active {
+            background: var(--glass-bg);
+            border-color: var(--glass-border);
+        }
+        .demo-badge {
+            display: inline-block;
+            background: rgba(255, 189, 46, 0.2);
+            color: #FFBD2E;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-left: 0.5rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: var(--font-main);
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+        textarea.form-control {
+            min-height: 150px;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+        }
+        .analysis-result {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(0, 240, 255, 0.05);
+            border: 1px solid var(--glass-border-hover);
+            border-radius: 8px;
+            display: none;
+        }
+        
+        /* Auth Screen */
+        .auth-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .auth-box {
+            background: var(--bg-secondary);
+            padding: 3rem;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Auth Screen -->
+    <div id="auth-screen" class="auth-screen">
+        <div class="auth-box">
+            <div class="logo justify-center" style="justify-content: center; margin-bottom: 2rem;">
+                <i class="fa-solid fa-shield-halved" style="color: var(--accent-primary);"></i> HexaVuln
+            </div>
+            <h2>Demo Login</h2>
+            <p>Access the HexaVuln AI workspace.</p>
+            <div class="form-group text-left">
+                <input type="text" id="demo-username" class="form-control" placeholder="Username (e.g. researcher)" value="demo_user">
+            </div>
+            <button class="btn btn-primary w-full" style="width: 100%;" onclick="login()">Login to Workspace</button>
+            <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-secondary);">Demo mode bypasses real authentication.</p>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div class="app-container" style="display: none;" id="app-screen">
+        <div class="sidebar">
+            <div class="logo" style="margin-bottom: 2rem;">
+                <i class="fa-solid fa-shield-halved" style="color: var(--accent-primary);"></i> HexaVuln
+            </div>
+            <p style="font-size: 0.8rem;">Status: <span class="demo-badge">DEMO AI MODE</span></p>
+            
+            <button class="btn btn-outline w-full" style="width: 100%; margin-top: 1rem;" onclick="newCase()">+ New Case</button>
+            
+            <ul class="case-list" id="case-list">
+                <li class="active">Case #1: Example API</li>
+            </ul>
+
+            <div style="position: absolute; bottom: 2rem;">
+                <a href="#" onclick="logout()" style="color: var(--text-secondary); text-decoration: none;"><i class="fa-solid fa-sign-out"></i> Logout</a>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h2>Research Workspace</h2>
+                <div class="user-profile">
+                    <i class="fa-solid fa-user-circle"></i> <span id="user-display">demo_user</span>
+                </div>
+            </div>
+
+            <div class="glass-card" style="margin-bottom: 2rem;">
+                <h3>Case Details</h3>
+                <div class="form-group">
+                    <label>Target / Project</label>
+                    <input type="text" class="form-control" value="api.example.com" placeholder="e.g. api.example.com">
+                </div>
+                <div class="form-group">
+                    <label>Evidence (HTTP, Logs, Code)</label>
+                    <textarea class="form-control" id="evidence-input" placeholder="Paste your raw HTTP request/response or code snippet here...">GET /v1/users/9082/private_data HTTP/1.1
+Host: api.example.com
+Authorization: Bearer user_token_123
+
+HTTP/1.1 200 OK
+{"data": {"ssn": "000-00-0000", "email": "admin@example.com"}}</textarea>
+                </div>
+                <button class="btn btn-primary" id="analyze-btn" onclick="analyzeEvidence()">
+                    <i class="fa-solid fa-brain"></i> Analyze with Claude (Demo)
+                </button>
+            </div>
+
+            <div id="analysis-result" class="analysis-result">
+                <h3><i class="fa-solid fa-robot" style="color: var(--accent-primary);"></i> Claude Analysis Report</h3>
+                <div id="report-content" style="margin-top: 1rem; font-family: var(--font-main);">
+                    <!-- Generated via JS -->
+                </div>
+                <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
+                    <button class="btn btn-primary" onclick="alert('Markdown copied to clipboard!')"><i class="fa-solid fa-copy"></i> Export Markdown</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
